@@ -41,7 +41,7 @@ export default function Search() {
     }, [query, selectedGenre, uniqueMovies]);
 
     return (
-        <main className="main-content" style={{ marginTop: '8rem' }}>
+        <main className="main-content" style={{ marginTop: '6rem' }}>
             <section className="movies-section">
                 <h2 className="section-title">
                     {query ? `Search Results for "${query}"` : 'Search by Genre'}

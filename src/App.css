@@ -18,7 +18,7 @@
 .movies-section {
     position: relative;
     z-index: 2;
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 .section-title {
@@ -39,7 +39,9 @@
     position: absolute;
     bottom: -8px;
     left: 0;
-    width: 60px;
+    width: 40%;
+    /* Scale with text */
+    min-width: 40px;
     height: 4px;
     background: var(--gold-accent);
     border-radius: 4px;

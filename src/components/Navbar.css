@@ -10,10 +10,10 @@
 }
 
 .navbar.scrolled {
-    background: rgba(5, 5, 5, 0.85);
+    background: rgba(5, 5, 5, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 1rem 2rem;
+    padding: 0.8rem 2rem;
     border-bottom: 1px solid rgba(197, 160, 89, 0.2);
 }
 
@@ -53,7 +53,7 @@
     color: var(--gold-accent);
 }
 
-.nav-links li a.active::after {
+.nav-links li a.active:not(.dropdown-content a)::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -88,35 +88,50 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--gold-muted);
-    min-width: 160px;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--gold-accent);
+    min-width: 180px;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(197, 160, 89, 0.2);
     z-index: 101;
     overflow: hidden;
-    padding: 0.5rem 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(-50%) translateY(10px);
 }
 
 .dropdown:hover .dropdown-content {
     display: flex;
     flex-direction: column;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-content a {
     color: var(--text-main);
-    padding: 10px 16px;
+    padding: 12px 20px;
     text-decoration: none;
     display: block;
-    transition: background 0.3s ease;
-    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dropdown-content a.active {
+    color: var(--gold-accent);
+    background: rgba(197, 160, 89, 0.1);
+    border-left: 3px solid var(--gold-accent);
 }
 
 .dropdown-content a:hover {
-    background: var(--gold-muted);
-    color: #fff;
+    background: rgba(197, 160, 89, 0.15);
+    color: var(--gold-accent);
+    padding-left: 25px;
 }
 
 .search-form {
@@ -165,13 +180,29 @@
 }
 
 @media (max-width: 900px) {
+    .navbar {
+        padding: 1rem 1rem;
+    }
+
     .navbar-content {
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .nav-links {
         gap: 1rem;
+        flex-wrap: wrap;
         justify-content: center;
     }
 
     .search-form {
         margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 300px;
     }
 }
