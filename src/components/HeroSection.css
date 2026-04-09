@@ -11,18 +11,12 @@
 
 .hero-content {
     max-width: 800px;
-    animation: levitate-hero 5s ease-in-out infinite;
 }
 
 .hero-title {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(197, 160, 89, 0.4), 0 0 40px rgba(255, 255, 255, 0.1);
-    background: linear-gradient(135deg, #fff 0%, rgb(197, 160, 89) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--gold-accent);
     line-height: 1.2;
 }
 
@@ -31,16 +25,4 @@
     color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
-}
-
-@keyframes levitate-hero {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-15px);
-    }
 }

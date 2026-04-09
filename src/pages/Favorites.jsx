@@ -2,34 +2,35 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from '../components/MovieCard';
 
 export default function Favorites() {
-    const [favorites, setFavorites] = useState([]);
+    const [favMovies, setFavMovies] = useState([]);
 
-    const fetchFavorites = () => {
-        const stored = JSON.parse(localStorage.getItem('movies_favorites') || '[]');
-        setFavorites(stored);
-    };
+    const loadFavs = () => {
+        console.log("picking up favorites from storage...");
+        const data = JSON.parse(localStorage.getItem('movies_favorites') || '[]');
+        setFavMovies(data);
+    }; // load the list from local storage
 
     useEffect(() => {
-        fetchFavorites();
+        loadFavs();
 
-        window.addEventListener('favoritesUpdated', fetchFavorites);
-        return () => window.removeEventListener('favoritesUpdated', fetchFavorites);
-    }, []);
+        window.addEventListener('favoritesUpdated', loadFavs);
+        return () => window.removeEventListener('favoritesUpdated', loadFavs);
+    }, []); // refresh list if something is added/removed elsewhere
 
     return (
         <main className="main-content" style={{ marginTop: '8rem' }}>
             <section className="movies-section">
                 <h2 className="section-title">Your Favorites</h2>
-                {favorites.length > 0 ? (
+                {favMovies.length > 0 ? (
                     <div className="movies-grid">
-                        {favorites.map((movie) => (
+                        {favMovies.map((m) => (
                             <MovieCard
-                                key={movie.id}
-                                id={movie.id}
-                                title={movie.title}
-                                poster={movie.poster}
-                                rating={movie.rating}
-                                review={movie.review}
+                                key={m.id}
+                                id={m.id}
+                                title={m.title}
+                                poster={m.poster}
+                                rating={m.rating}
+                                review={m.review}
                                 delay="0s"
                             />
                         ))}

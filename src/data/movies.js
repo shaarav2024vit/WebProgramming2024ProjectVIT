@@ -1,4 +1,4 @@
-export const featuredMovies = [
+export const mainMovies = [
     {
         id: 1,
         title: "Inception",
@@ -211,7 +211,7 @@ export const featuredMovies = [
 
 ];
 
-export const recentlyAdded = [
+export const newMovies = [
     {
         id: 10,
         title: "Project Hail Mary",
@@ -402,6 +402,6 @@ export const recentlyAdded = [
     }
 ];
 
-export const topRatedMovies = [...featuredMovies, ...recentlyAdded].sort((a, b) => {
+export const bestMovies = [...mainMovies, ...newMovies].sort((a, b) => {
     return parseFloat(b.rating) - parseFloat(a.rating);
 });

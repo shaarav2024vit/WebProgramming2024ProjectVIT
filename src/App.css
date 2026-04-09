@@ -29,9 +29,6 @@
     font-weight: 600;
     display: inline-block;
     position: relative;
-
-    /* Gentle float for section titles */
-    animation: levitate var(--float-timing) ease-in-out infinite;
 }
 
 .section-title::after {
@@ -52,16 +49,4 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 3rem;
     padding-bottom: 4rem;
-}
-
-@keyframes levitate {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
 }

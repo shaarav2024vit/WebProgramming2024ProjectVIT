@@ -3,40 +3,52 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [navBg, setNavBg] = useState(false);
+    const [searchTxt, setSearchTxt] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [totalPopcorn, setTotalPopcorn] = useState(() => {
+        const saved = localStorage.getItem('popcorn_count');
+        return parseInt(saved || '0');
+    });
+
+    const hitPopcorn = () => {
+        console.log('popcorn clicked!!');
+        const num = totalPopcorn + 1;
+        setTotalPopcorn(num);
+        localStorage.setItem('popcorn_count', num.toString());
+    }; // keep track of the popcorn we "eat"
+
     // Helper to check if a specific genre represents the active path+query
-    const isGenreActive = (genre) => {
-        const params = new URLSearchParams(location.search);
-        return location.pathname === '/search' && params.get('genre') === genre;
-    };
+    const isActiveGenre = (g) => {
+        const p = new URLSearchParams(location.search);
+        return location.pathname === '/search' && p.get('genre') === g;
+    }; // check if the genre we're looking at is the one from the URL
 
     useEffect(() => {
-        const handleScroll = () => {
+        const onScroll = () => {
             if (window.scrollY > 50) {
-                setScrolled(true);
+                setNavBg(true);
             } else {
-                setScrolled(false);
+                setNavBg(false);
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []); // add scroll listener when component mounts
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (searchQuery.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-            setSearchQuery('');
+    const onSearchSubmit = (event) => {
+        event.preventDefault(); // stop page from reloading
+        if (searchTxt.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchTxt)}`);
+            setSearchTxt('');
         }
     };
 
     return (
-        <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <header className={`navbar ${navBg ? 'scrolled' : ''}`}>
             <div className="navbar-content">
                 <h1 className="navbar-logo">Movie Reviews</h1>
                 <nav>
@@ -48,22 +60,26 @@ const Navbar = () => {
                         <li className="dropdown">
                             <span className="dropbtn">Genres ▼</span>
                             <div className="dropdown-content">
-                                <NavLink to="/search?genre=Action" className={() => isGenreActive('Action') ? 'active' : ''}>Action</NavLink>
-                                <NavLink to="/search?genre=Sci-Fi" className={() => isGenreActive('Sci-Fi') ? 'active' : ''}>Sci-Fi</NavLink>
-                                <NavLink to="/search?genre=Thriller" className={() => isGenreActive('Thriller') ? 'active' : ''}>Thriller</NavLink>
-                                <NavLink to="/search?genre=Adventure" className={() => isGenreActive('Adventure') ? 'active' : ''}>Adventure</NavLink>
-                                <NavLink to="/search?genre=Crime" className={() => isGenreActive('Crime') ? 'active' : ''}>Crime</NavLink>
-                                <NavLink to="/search?genre=Drama" className={() => isGenreActive('Drama') ? 'active' : ''}>Drama</NavLink>
+                                <NavLink to="/search?genre=Action" className={() => isActiveGenre('Action') ? 'active' : ''}>Action</NavLink>
+                                <NavLink to="/search?genre=Sci-Fi" className={() => isActiveGenre('Sci-Fi') ? 'active' : ''}>Sci-Fi</NavLink>
+                                <NavLink to="/search?genre=Thriller" className={() => isActiveGenre('Thriller') ? 'active' : ''}>Thriller</NavLink>
+                                <NavLink to="/search?genre=Adventure" className={() => isActiveGenre('Adventure') ? 'active' : ''}>Adventure</NavLink>
+                                <NavLink to="/search?genre=Crime" className={() => isActiveGenre('Crime') ? 'active' : ''}>Crime</NavLink>
+                                <NavLink to="/search?genre=Drama" className={() => isActiveGenre('Drama') ? 'active' : ''}>Drama</NavLink>
                             </div>
                         </li>
                     </ul>
                 </nav>
-                <form className="search-form" onSubmit={handleSearch}>
+                <div className="popcorn-container" onClick={hitPopcorn} title="Get Popcorn!">
+                    <span className="popcorn-icon">🍿</span>
+                    <span className="popcorn-count">{totalPopcorn}</span>
+                </div>
+                <form className="search-form" onSubmit={onSearchSubmit}>
                     <input
                         type="text"
                         placeholder="Search movies..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        value={searchTxt}
+                        onChange={(e) => setSearchTxt(e.target.value)}
                         className="search-input"
                     />
                     <button type="submit" className="search-btn">Search</button>
