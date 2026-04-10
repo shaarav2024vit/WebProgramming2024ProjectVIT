@@ -9,7 +9,7 @@ export default function Browse() {
   const [genreFilter, setGenreFilter] = useState('');
   const [sortBy, setSortBy] = useState('date');
 
-  const genres = ['All', ...dataGenres];
+  const genres = dataGenres;
 
   const filteredAndSortedMovies = useMemo(() => {
     let result = [...movies];

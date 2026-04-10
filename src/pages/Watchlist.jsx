@@ -6,16 +6,15 @@ export default function Watchlist() {
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
-    const list = JSON.parse(localStorage.getItem('watchlist')) || [];
-    setWatchlist(list);
-
-    const handleUpdate = () => {
-      const updatedList = JSON.parse(localStorage.getItem('watchlist')) || [];
-      setWatchlist(updatedList);
+    const syncWatchlist = () => {
+      const list = JSON.parse(localStorage.getItem('watchlist')) || [];
+      setWatchlist(list);
     };
 
-    window.addEventListener('watchlistUpdated', handleUpdate);
-    return () => window.removeEventListener('watchlistUpdated', handleUpdate);
+    syncWatchlist();
+
+    window.addEventListener('watchlistUpdated', syncWatchlist);
+    return () => window.removeEventListener('watchlistUpdated', syncWatchlist);
   }, []);
 
   return (

@@ -11,8 +11,11 @@ export default function MovieDetail() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const allReviews = JSON.parse(localStorage.getItem('reviews')) || [];
-    setReviews(allReviews.filter(r => r.movieId === id));
+    const loadReviews = () => {
+      const allReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      setReviews(allReviews.filter(r => r.movieId === id));
+    };
+    loadReviews();
   }, [id]);
 
   const handleReviewAdded = (review) => {

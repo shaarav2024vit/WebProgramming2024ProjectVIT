@@ -6,16 +6,15 @@ export default function MovieCard({ movie }) {
   const [inWatchlist, setInWatchlist] = useState(false);
 
   useEffect(() => {
-    const list = JSON.parse(localStorage.getItem('watchlist')) || [];
-    setInWatchlist(list.some(m => m.id === movie.id));
-
-    const handleUpdate = () => {
-      const updatedList = JSON.parse(localStorage.getItem('watchlist')) || [];
-      setInWatchlist(updatedList.some(m => m.id === movie.id));
+    const syncWatchlist = () => {
+      const list = JSON.parse(localStorage.getItem('watchlist')) || [];
+      setInWatchlist(list.some(m => m.id === movie.id));
     };
 
-    window.addEventListener('watchlistUpdated', handleUpdate);
-    return () => window.removeEventListener('watchlistUpdated', handleUpdate);
+    syncWatchlist();
+
+    window.addEventListener('watchlistUpdated', syncWatchlist);
+    return () => window.removeEventListener('watchlistUpdated', syncWatchlist);
   }, [movie.id]);
 
   const toggleWatchlist = (e) => {
