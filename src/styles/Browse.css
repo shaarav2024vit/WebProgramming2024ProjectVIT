@@ -1,0 +1,156 @@
+.hero-section {
+  position: relative;
+  display: flex;
+  min-height: 460px;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  background: var(--bg);
+  padding: 0 80px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: -30px; left: -30px; right: -30px; bottom: -30px;
+  background-size: cover;
+  background-position: center top;
+  filter: blur(24px);
+  z-index: 1;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,1) 100%);
+}
+
+.hero-poster {
+  position: relative;
+  z-index: 2;
+  width: 320px;
+  background-size: cover;
+  background-position: center;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-radius: 6px 0 0 6px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 80px; 
+  width: 100%;
+}
+
+.hero-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.hero-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.hero-link {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+  display: inline-block;
+}
+
+.hero-link:hover {
+  text-decoration: underline;
+}
+
+.editorial-header {
+  padding: 64px 80px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid #1c1c1c;
+  margin-bottom: 40px;
+}
+
+.editorial-header h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--text-primary);
+}
+
+.editorial-header .count {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+
+.controls {
+  padding: 0 80px 40px;
+  display: flex;
+  background: transparent;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 1;
+  background: #111;
+  border: 1px solid #222;
+  color: #f0f0f0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+}
+
+.search-input::placeholder {
+  color: #3a3a3a;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.filters select {
+  background: #111;
+  border: 1px solid #222;
+  color: #f0f0f0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding: 0 80px 80px;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-muted);
+}

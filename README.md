@@ -1,80 +1,16 @@
-# 🎬 WebProgramming2024ProjectVIT
+# React + Vite
 
-**BCSE203E – Web Programming Project**  
-**Name:** Shaarav S  
-**Register Number:** 24BYB0118  
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 📌 Project Summary
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-This project is a **Movie Review Web Application** built using modern frontend technologies. It transforms a static HTML/CSS design into a dynamic and interactive platform where users can browse, search, and explore movie reviews in an efficient and user-friendly way.
+## React Compiler
 
-The application follows a **component-based architecture** with client-side routing and state-driven UI updates to provide smooth navigation and a seamless user experience.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
----
+## Expanding the ESLint configuration
 
-## 🚀 Features
-
-- Dynamic routing  
-  - `/`, `/latest`, `/top-rated`, `/movie/:id`, `/search`  
-- Real-time search functionality  
-- Movie detail pages using route parameters  
-- Case-insensitive search  
-
----
-
-## ⚛️ React Concepts Used
-
-- Functional Components  
-- Hooks:
-  - `useState`
-  - `useEffect`
-  - `useMemo`
-- Props for data passing  
-
----
-
-## 🎨 UI / UX Enhancements
-
-- Sticky Navbar with scroll effect  
-- Active link highlighting  
-- Hover animations on movie cards  
-- Hero section  
-- Animated particle background  
-
----
-
-## 📊 Data Handling
-
-- Centralized data file (`movies.js`)  
-- Categories:
-  - Featured  
-  - Recent  
-  - Top Rated  
-- Sorting and filtering using JavaScript methods  
-
----
-
-## 🔧 Advanced Features
-
-- Search using query parameters (`useSearchParams`)  
-- Navigation using `useNavigate`  
-- Conditional rendering for movie details  
-- Scroll-based UI updates  
-
----
-
-## 🛠️ Tech Stack
-
-- React.js  
-- Vite  
-- React Router DOM  
-- JavaScript (ES6+)  
-- CSS3  
-
----
-
-## 📎 Notes
-
-This project demonstrates modern frontend development practices including modular design, reusable components, and dynamic UI rendering.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

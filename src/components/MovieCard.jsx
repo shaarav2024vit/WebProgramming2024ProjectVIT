@@ -1,53 +1,57 @@
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './MovieCard.css';
+import { useState, useEffect } from 'react';
+import '../styles/MovieCard.css';
 
-const MovieCard = ({ id, title, poster, rating, review: desc, delay }) => {
-    const [liked, setLiked] = useState(false);
+export default function MovieCard({ movie }) {
+  const [inWatchlist, setInWatchlist] = useState(false);
 
-    useEffect(() => {
-        const favs = JSON.parse(localStorage.getItem('movies_favorites') || '[]');
-        setLiked(favs.some(m => m.id === id));
-    }, [id]); // check if this movie is already in favorites on load
+  useEffect(() => {
+    const list = JSON.parse(localStorage.getItem('watchlist')) || [];
+    setInWatchlist(list.some(m => m.id === movie.id));
 
-    const handleFavorite = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log("toggling favorite for movie id:", id);
-
-        let favs = JSON.parse(localStorage.getItem('movies_favorites') || '[]');
-        if (liked) {
-            favs = favs.filter(m => m.id !== id);
-        } else {
-            favs.push({ id, title, poster, rating, review: desc, delay });
-        }
-
-        localStorage.setItem('movies_favorites', JSON.stringify(favs));
-        setLiked(!liked);
-        window.dispatchEvent(new Event('favoritesUpdated')); // let other components know it changed
+    const handleUpdate = () => {
+      const updatedList = JSON.parse(localStorage.getItem('watchlist')) || [];
+      setInWatchlist(updatedList.some(m => m.id === movie.id));
     };
 
-    return (
-        <div className="movie-card" style={{ animationDelay: delay }}>
-            <div className="movie-card-inner">
-                <div className="movie-poster-container">
-                    <img src={poster} alt={`${title} Poster`} className="movie-poster" />
-                    <div className="movie-rating">{rating}</div>
-                    <button className={`favorite-btn ${liked ? 'active' : ''}`} onClick={handleFavorite} aria-label="Toggle Favorite">
-                        <svg viewBox="0 0 24 24" fill={liked ? "#e50914" : "rgba(0,0,0,0.5)"} stroke={liked ? "#e50914" : "rgba(255, 255, 255, 0.8)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div className="movie-content">
-                    <h3 className="movie-title">{title}</h3>
-                    <p className="movie-review">{desc}</p>
-                    <Link to={`/movie/${id}`} className="read-more-btn">Read More</Link>
-                </div>
-            </div>
-        </div>
-    );
-};
+    window.addEventListener('watchlistUpdated', handleUpdate);
+    return () => window.removeEventListener('watchlistUpdated', handleUpdate);
+  }, [movie.id]);
 
-export default MovieCard;
+  const toggleWatchlist = (e) => {
+    e.preventDefault(); 
+    let list = JSON.parse(localStorage.getItem('watchlist')) || [];
+    if (inWatchlist) {
+      list = list.filter(m => m.id !== movie.id);
+      setInWatchlist(false);
+    } else {
+      list.push(movie);
+      setInWatchlist(true);
+    }
+    localStorage.setItem('watchlist', JSON.stringify(list));
+    window.dispatchEvent(new Event('watchlistUpdated'));
+  };
+
+  return (
+    <Link to={`/movie/${movie.id}`} className="movie-card">
+      <div className="poster-wrapper">
+         <img src={movie.poster} alt={movie.title} className="movie-poster" />
+      </div>
+      <div className="movie-info">
+        <h3>{movie.title}</h3>
+        <p className="movie-meta">
+          <span>{movie.year}</span>
+          <span className="separator">·</span>
+          <span>{movie.genre}</span>
+        </p>
+        <p className="movie-rating"><span className="star">★</span> {movie.rating}</p>
+        <button 
+          className={`watchlist-pill ${inWatchlist ? 'saved' : ''}`}
+          onClick={toggleWatchlist} 
+        >
+          {inWatchlist ? 'Saved' : '+ Watchlist'}
+        </button>
+      </div>
+    </Link>
+  );
+}

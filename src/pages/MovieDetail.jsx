@@ -1,73 +1,94 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { mainMovies, newMovies } from '../data/movies';
-import './MovieDetail.css';
+import { movies } from '../data/movies';
+import StarRating from '../components/StarRating';
+import ReviewForm from '../components/ReviewForm';
+import '../styles/MovieDetail.css';
 
 export default function MovieDetail() {
-    const { id } = useParams();
-    const list = [...mainMovies, ...newMovies]; // combine all movie lists
-    const info = list.find(m => m.id === parseInt(id)); // find the movie we clicked on
+  const { id } = useParams();
+  const movie = movies.find(m => m.id.toString() === id);
+  const [reviews, setReviews] = useState([]);
 
-    console.log("Loading details for movie:", id);
+  useEffect(() => {
+    const allReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+    setReviews(allReviews.filter(r => r.movieId === id));
+  }, [id]);
 
-    if (!info) {
-        return (
-            <main className="main-content" style={{ marginTop: '8rem', textAlign: 'center' }}>
-                <h2 className="section-title">Movie Not Found</h2>
-                <Link to="/" className="back-link">Return Home</Link>
-            </main>
-        ); // show error if movie doesn't exist
-    }
+  const handleReviewAdded = (review) => {
+    setReviews(prev => [...prev, review]);
+  };
 
+  if (!movie) {
     return (
-        <main className="main-content" style={{ marginTop: '7rem', display: 'flex', justifyContent: 'center' }}>
-            <div className="movie-detail-container">
-                <div className="movie-detail-poster-wrapper">
-                    <img src={info.poster} alt={info.title} className="movie-detail-poster" />
-                </div>
-                <div className="movie-detail-info">
-                    <h1 className="movie-detail-title">{info.title}</h1>
-                    <div className="movie-detail-meta">
-                        <span className="movie-badge">{info.year}</span>
-                        <span className="movie-badge">{info.length}</span>
-                        <span className="movie-badge">{info.language}</span>
-                        <span className="movie-badge highlight">{info.genre}</span>
-                    </div>
-                    <div className="movie-detail-rating">★ {info.rating}</div> {/* show the star rating */}
-
-                    <div className="movie-director">
-                        <span className="director-label">Director:</span> {info.director}
-                    </div>
-
-                    {info.trailer && (
-                        <a href={info.trailer} target="_blank" rel="noopener noreferrer" className="trailer-btn">
-                            <span className="play-icon">▶</span> Watch Trailer
-                        </a>
-                    )}
-
-                    <p className="movie-detail-description">
-                        {info.review}
-                        <br /><br />
-                        Immerse yourself into the world of {info.title}. With stunning visuals and breathtaking acting, this film takes you on a journey through the perspectives of its deeply written characters.
-                    </p>
-
-                    {info.cast && (
-                        <div className="movie-cast-section">
-                            <h3 className="cast-title">Meet the Cast</h3>
-                            <div className="cast-grid">
-                                {info.cast.map((person, i) => (
-                                    <div key={i} className="cast-member">
-                                        <div className="actor-name">{person.name}</div>
-                                        <div className="actor-role">{person.role}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    <Link to="/" className="back-link">&larr; Back Highlights</Link>
-                </div>
-            </div>
-        </main>
+      <div className="not-found">
+        <h2>Movie not found.</h2>
+        <Link to="/">Return to Browse</Link>
+      </div>
     );
+  }
+
+  return (
+    <div className="movie-detail-page">
+      <div className="detail-hero-backdrop">
+        <div className="detail-header-content">
+          <div className="poster-container">
+            <img src={movie.poster} alt={movie.title} className="detail-poster" />
+          </div>
+          <div className="detail-info">
+            <h1>{movie.title}</h1>
+            <p className="detail-meta">
+              {movie.year} <span className="separator">·</span> {movie.genre} <span className="separator">·</span> {movie.length} <span className="separator">·</span> {movie.language}
+              <span className="label">Director:</span> <span className="value">{movie.director}</span>
+            </p>
+            
+            <p className="synopsis">{movie.synopsis}</p>
+            
+            {movie.trailer && (
+              <a href={movie.trailer} target="_blank" rel="noopener noreferrer" className="trailer-link">
+                ↗ Watch Trailer
+              </a>
+            )}
+
+            <div className="cast-section">
+              <h3>Cast</h3>
+              <div className="cast-list">
+                {movie.cast && movie.cast.map((actor, idx) => (
+                  <div key={idx} className="cast-card">
+                    <span className="cast-name">{actor.name}</span>
+                    <span className="cast-role">{actor.role}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="reviews-section-wrapper">
+        <hr className="divider" />
+        <div className="reviews-section">
+          <h2>User Reviews</h2>
+          {reviews.length > 0 ? (
+            <div className="reviews-list">
+              {reviews.map(review => (
+                <div key={review.id} className="review-item">
+                  <div className="review-header">
+                    <span className="reviewer-name">{review.name}</span>
+                    <span className="review-date">{review.date}</span>
+                  </div>
+                  <StarRating rating={review.rating} readOnly={true} />
+                  <p className="review-text">{review.text}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="no-reviews">No user reviews yet. Be the first!</p>
+          )}
+
+          <ReviewForm movieId={movie.id.toString()} onReviewAdded={handleReviewAdded} />
+        </div>
+      </div>
+    </div>
+  );
 }

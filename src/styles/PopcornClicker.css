@@ -1,0 +1,41 @@
+.popcorn-clicker {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: #111111;
+  border: 1px solid #222222;
+  border-radius: 50px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.1s ease, border-color 0.2s ease, background 0.2s ease;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.popcorn-clicker:hover {
+  border-color: #444444;
+  background: #1a1a1a;
+  transform: translateY(-2px);
+}
+
+.popcorn-clicker.bump {
+  transform: scale(0.92);
+}
+
+.popcorn-icon {
+  font-size: 1.2rem;
+}
+
+.popcorn-count {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  min-width: 1ch;
+  text-align: center;
+}

@@ -1,0 +1,68 @@
+.review-form {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid #1c1c1c;
+}
+
+.review-form h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.rating-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555555;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: #111;
+  border: 1px solid #222;
+  color: #f0f0f0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #444;
+}
+
+.submit-btn {
+  background-color: transparent;
+  color: #f0f0f0;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 0.8rem 2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #111;
+  border-color: #f0f0f0;
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
