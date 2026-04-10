@@ -1,69 +1,8 @@
-# 🎬 WebProgramming2024ProjectVIT
+# 🎬 WebProgramming2026ProjectVIT
 
 **BCSE203E – Web Programming Project**  
 **Name:** Shaarav S  
 **Register Number:** 24BYB0118  
-
----
-
-## 📌 Project Summary
-
-This project is a **Movie Review Web Application** built using modern frontend technologies. It transforms a static HTML/CSS design into a dynamic and interactive platform where users can browse, search, and explore movie reviews in an efficient and user-friendly way.
-
-The application follows a **component-based architecture** with client-side routing and state-driven UI updates to provide smooth navigation and a seamless user experience.
-
----
-
-## 🚀 Features
-
-- Dynamic routing  
-  - `/`, `/latest`, `/top-rated`, `/movie/:id`, `/search`  
-- Real-time search functionality  
-- Movie detail pages using route parameters  
-- Case-insensitive search  
-
----
-
-## ⚛️ React Concepts Used
-
-- Functional Components  
-- Hooks:
-  - `useState`
-  - `useEffect`
-  - `useMemo`
-- Props for data passing  
-
----
-
-## 🎨 UI / UX Enhancements
-
-- Sticky Navbar with scroll effect  
-- Active link highlighting  
-- Hover animations on movie cards  
-- Hero section  
-- Animated particle background  
-
----
-
-## 📊 Data Handling
-
-- Centralized data file (`movies.js`)  
-- Categories:
-  - Featured  
-  - Recent  
-  - Top Rated  
-- Sorting and filtering using JavaScript methods  
-
----
-
-## 🔧 Advanced Features
-
-- Search using query parameters (`useSearchParams`)  
-- Navigation using `useNavigate`  
-- Conditional rendering for movie details  
-- Scroll-based UI updates  
-
----
 
 ## 🛠️ Tech Stack
 
@@ -73,8 +12,27 @@ The application follows a **component-based architecture** with client-side rout
 - JavaScript (ES6+)  
 - CSS3  
 
----
+# Movie Review Web Application
 
-## 📎 Notes
+This project is a Movie Review Web Application built as part of the Web Programming 2024 course at VIT. Using React.js, it transforms a static UI into a fully dynamic and interactive platform where users can browse, search, and explore movie reviews — all without full page reloads, thanks to smooth client-side navigation and real-time UI updates.
 
-This project demonstrates modern frontend development practices including modular design, reusable components, and dynamic UI rendering.
+## React
+
+- `useState` manages interactive state across the app, while `useEffect` handles side effects like data loading and scroll detection
+- Props are being used for sending data between parent and child
+- Uses React Router to handle dynamic client-side routing across pages like `/`, `/latest`, `/top-rated`, `/movie/:id`, and `/search`
+- Users can navigate seamlessly between pages using `useNavigate`, with search results tied to URL query parameters via `useSearchParams`
+- Movie detail pages render conditionally based on the route parameter, showing only what's relevant to the selected movie
+
+## JavaScript
+
+- Search works in real time with case-insensitive filtering, so users get results as they type
+- Movies are organized into and sorted according to the user using array methods
+- Search queries are synced with the URL, making results easy to bookmark or share
+- All movie data lives in a single local `movies.js` file
+
+## CSS
+
+- A bold Hero section greets users on the home page, setting the visual tone of the app
+- Movie cards respond to hover with smooth animations, making browsing feel engaging and fluid
+- The navbar updates dynamically based on scroll position, giving the app a polished, app-like feel
